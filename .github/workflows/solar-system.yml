@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
       - 'feature/*'
     
 jobs:
@@ -31,4 +31,3 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
-            
