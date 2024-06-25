@@ -16,6 +16,16 @@ env:
 
 jobs:
     unit-testing:
+        env:
+          MONGO_URI: mongodb//localhost:27017/superData
+          MONGO_USERNAME: non-prod-user
+          MONGO_PASSWORD: non-prod-password
+
+        services:
+          mongodb:
+            image: mongo
+            ports:
+              - 27017:27017
         continue-on-error: true
         name: Unit Testing
         runs-on: self-hosted
