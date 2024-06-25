@@ -128,6 +128,6 @@ jobs:
       
       - name: Docker Stop Containers and Remove
         run: |
-          docker stop ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
-          docker rm -f ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+          docker stop solar-system-app
+          docker image rm -f ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
   
