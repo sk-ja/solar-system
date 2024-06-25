@@ -58,19 +58,37 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
+        - name: 'Cleanup build folder'
+          run: |
+            ls -la ./
+            rm -rf ./* || true
+            rm -rf ./.??* || true
+            ls -la ./
           
     code-coverage:
       name: Code Coverage
+      env:
+          MONGO_URI: mongodb://mongo:27017/superData
+          MONGO_USERNAME: non-prod-user
+          MONGO_PASSWORD: non-prod-password
+
+      services:
+        mongodb:
+          image: siddharth67/mongo-db:non-prod
+          options:
+            --name mongo
+      container:
+        image: node:18
       continue-on-error: true
       runs-on: self-hosted
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup NodeJS Version
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # - name: Setup NodeJS Version
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
       
       - name: Install Dependencies
         run: npm install
@@ -84,6 +102,14 @@ jobs:
           name: Code-Coverage-result
           path: coverage
           retention-days: 5
+
+
+      - name: 'Cleanup build folder'
+        run: |
+          ls -la ./
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+          ls -la ./
 
     docker:
       permissions:
@@ -154,4 +180,11 @@ jobs:
         run: |
           docker stop solar-system-app
           docker image rm -f ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+
+      - name: 'Cleanup build folder'
+        run: |
+          ls -la ./
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+          ls -la ./
   
