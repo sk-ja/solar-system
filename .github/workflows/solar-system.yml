@@ -96,11 +96,6 @@ jobs:
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
       
-      - name: Docker Stop Containers and Remove
-        run: |
-          docker stop solar-system-app
-          docker rm solar-system-app
-    
       - name: Docker Image Test
         run: |
           docker images
@@ -116,4 +111,9 @@ jobs:
 
           echo Testing Image URL using WGET
           wget -q -O - 127.0.0.1:3000/live | grep live
+      
+      - name: Docker Stop Containers and Remove
+        run: |
+          docker stop ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+          docker rm -f ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
   
