@@ -78,6 +78,7 @@ jobs:
     docker:
       permissions:
         packages: write
+        contents: read
       needs: [unit-testing, code-coverage]
       name: Containerization
       runs-on: self-hosted
