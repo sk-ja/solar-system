@@ -24,14 +24,11 @@ jobs:
         - name: Setup NodeJS Version
           uses: actions/setup-node@v4
           with:
-            node-version: 20
+            node-version: 18
     
         - name: Install Dependencies
           run: npm install
 
-        - name: install latest mongoose
-          run: npm install mongoose@latest
-    
         - name: Unit Testing
           run: npm test
           
