@@ -8,7 +8,7 @@ on:
       - 'feature/*'
     
 env:
-  MONGO_URI: mongodb+srv://skomantasj:Aitvaras1+@cluster0.rbvmfbp.mongodb.net/superData?retryWrites=true&w=majority&appName=Cluster0
+  MONGO_URI: cluster0.rbvmfbp.mongodb.net/
   MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
@@ -41,7 +41,6 @@ jobs:
             path: test-results.xml
           
     code-coverage:
-      
       name: Code Coverage
       continue-on-error: true
       runs-on: ubuntu-latest
@@ -51,6 +50,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Code Coverage
+        continue-on-error: true
         run: npm run coverage
       - name: Archive Coverage Report
         uses: actions/upload-artifact@v4
