@@ -29,6 +29,9 @@ jobs:
         - name: Install Dependencies
           run: npm install
 
+        - name: Install dotenv
+          run: npm install --save dotenv
+
         - name: Unit Testing
           run: npm test
           
