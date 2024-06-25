@@ -17,14 +17,7 @@ jobs:
     unit-testing:
         continue-on-error: true
         name: Unit Testing
-        strategy:
-          matrix:
-            os: [ubuntu-latest, windows-latest]
-            node-version: [18, 19, 20]
-            exclude:
-              - os: windows-latest
-                node-version: 18
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -32,13 +25,10 @@ jobs:
         - name: Setup NodeJS Version
           uses: actions/setup-node@v4
           with:
-            node-version: ${{ matrix.node-version }}
+            node-version: 20
     
         - name: Install Dependencies
           run: npm install
-
-        - name: Install dotenv
-          run: npm install --save dotenv
 
         - name: Unit Testing
           run: npm test
@@ -48,3 +38,21 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
+          
+    code-coverage:
+      continue-on-error: true
+      name: Code Coverage
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm install
+      - name: Code Coverage
+        run: npm run coverage
+      - name: Archive Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Code-Coverage-result
+          path: coverage
+          retention-days: 5
