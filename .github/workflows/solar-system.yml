@@ -96,6 +96,11 @@ jobs:
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
       
+      - name: Docker Stop Containers and Remove
+        run: |
+          docker stop solar-system-app
+          docker rm solar-system-app
+    
       - name: Docker Image Test
         run: |
           docker images
