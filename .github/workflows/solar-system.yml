@@ -78,7 +78,7 @@ jobs:
     docker:
       needs: [unit-testing, code-coverage]
       name: Containerization
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
