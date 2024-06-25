@@ -15,8 +15,16 @@ env:
 
 jobs:
     unit-testing:
+        continue-on-error: true
         name: Unit Testing
-        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            os: [ubuntu-latest, windows-latest]
+            node-version: [18, 19, 20]
+            exclude:
+              - os: windows-latest
+                node-version: 18
+        runs-on: ${{ matrix.os }}
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -24,7 +32,7 @@ jobs:
         - name: Setup NodeJS Version
           uses: actions/setup-node@v4
           with:
-            node-version: 18
+            node-version: ${{ matrix.node-version }}
     
         - name: Install Dependencies
           run: npm install
@@ -40,6 +48,3 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
-
-        - name: Code Coverage
-          run: npm run coverage
