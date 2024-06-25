@@ -18,8 +18,8 @@ jobs:
     unit-testing:
         env:
           MONGO_URI: mongodb://localhost:27017/superData
-          MONGO_USERNAME: non-prod-user
-          MONGO_PASSWORD: non-prod-password
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: example
 
         services:
           mongodb:
