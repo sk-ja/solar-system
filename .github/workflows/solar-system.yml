@@ -227,7 +227,7 @@ jobs:
           env:
             NAMESPACE: ${{ vars.NAMESPACE }}
             REPLICAS: ${{ vars.REPLICAS }}
-            IMAGE: ${{ env.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+            IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
         
         - name: Check if tokens replaced successfully
           run: |
