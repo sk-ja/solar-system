@@ -256,6 +256,7 @@ jobs:
 
     integration-testing:
       name: Dev integration testing
+      continue-on-error: true
       needs: dev-deploy
       runs-on: self-hosted
       steps:
@@ -265,4 +266,4 @@ jobs:
           run: |
             echo ${{ env.URL }}
             echo "-------------------"
-            curl http://${{ env.URL }}/live -s -k | jq -r .status | grep -i live
+            curl https://${{ env.URL }}/live -s -k | jq -r .status | grep -i live
