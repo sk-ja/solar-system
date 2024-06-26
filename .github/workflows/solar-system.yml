@@ -144,6 +144,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
       
       - name: Docker Stop Containers and Remove
+        continue-on-error: true
         run: |
           docker stop solar-system-app
           docker rm -f solar-system-app
