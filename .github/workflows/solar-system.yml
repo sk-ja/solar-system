@@ -224,10 +224,10 @@ jobs:
             tokenPrefix: '{'
             tokenSuffix: '}'
             files: '["kubernetes/development/*.yaml"]'
-            env:
-              NAMESPACE: ${{ vars.NAMESPACE }}
-              REPLICAS: ${{ vars.REPLICAS }}
-              IMAGE: ${{ env.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+          env:
+            NAMESPACE: ${{ vars.NAMESPACE }}
+            REPLICAS: ${{ vars.REPLICAS }}
+            IMAGE: ${{ env.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
         
         - name: Check if tokens replaced successfully
           run: |
