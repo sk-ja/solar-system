@@ -192,7 +192,7 @@ jobs:
       needs: docker
       runs-on: self-hosted
       steps:
-        - name Checkout Repo
+        - name: Checkout Repo
           uses: actions/checkout@v4
 
         - name: Install kubectl
