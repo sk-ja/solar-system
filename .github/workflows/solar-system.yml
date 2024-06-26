@@ -193,7 +193,7 @@ jobs:
       needs: docker
       runs-on: self-hosted
       outputs:
-        APP_INGRESS_URL: ${{ steps.set-url.outputs.APP_INGRESS_HOST }}
+            APP_INGRESS_URL: ${{ steps.set-ingress-host-address.outputs.APP_INGRESS_HOST }}
       steps:
         - name: Checkout Repo
           uses: actions/checkout@v4
@@ -249,9 +249,9 @@ jobs:
             kubectl apply -f kubernetes/development
 
         - name: Set app ingress host address
-          id: set-url
+          id: set-ingress-host-address
           run: |
-            echo "APP_INGRESS_HOST=$(kubectl get ingress -n ${{ vars.NAMESPACE }} solar-system-app -o jsonpath='{.items[0].spec.tls[0].hosts[0]}')" >> $GITHUB_OUTPUT
+            echo "APP_INGRESS_HOST=$(kubectl -n ${{ vars.NAMESPACE }} get ingress -o jsonpath="{.items[0].spec.tls[0].hosts[0]}")" >> "$GITHUB_OUTPUT"
             
 
     integration-testing:
