@@ -190,6 +190,9 @@ jobs:
           ls -la ./
   
     dev-deploy:
+      environment:
+        name: development
+        url: https://${{ steps.set-ingress-host-address.outputs.APP_INGRESS_HOST }}
       needs: docker
       runs-on: self-hosted
       outputs:
