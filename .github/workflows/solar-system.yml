@@ -188,3 +188,27 @@ jobs:
           rm -rf ./.??* || true
           ls -la ./
   
+    dev-deploy:
+      needs: docker
+      runs-on: self-hosted
+      steps:
+        - name Checkout Repo
+          uses: actions/checkout@v4
+
+        - name: Install kubectl
+          uses: azure/setup-kubectl@v4
+          with:
+            version: '1.29.0'
+
+        - name: Set Kubernetes Context
+          uses: azure/k8s-set-context@v4
+          with:
+            method: kubeconfig
+            kubeconfig: ${{ secrets.KUBECONFIG }}
+
+        - name: Fetch kubectl version
+          run: |
+            kubectl version --short
+            echo -----------------
+            kubectl get nodes
+
