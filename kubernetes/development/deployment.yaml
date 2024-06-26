@@ -2,24 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: solar-system
-  name: solar-system
+    app: solar-system-dev
+  name: solar-system-dev
   namespace: _{_NAMESPACE_}_
 spec:
   replicas: _{_REPLICAS_}_
   selector:
     matchLabels:
-      app: solar-system
+      app: solar-system-dev
   strategy: {}
   template:
     metadata:
       labels:
-        app: solar-system
+        app: solar-system-dev
     spec:
       containers:
       - image: _{_IMAGE_}_
         imagePullPolicy: Always
-        name: solar-system
+        name: solar-system-dev
         ports:
         - containerPort: 3000
           name: http

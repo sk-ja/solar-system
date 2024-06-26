@@ -4,7 +4,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
-  name: solar-system
+  name: solar-system-dev
   namespace: _{_NAMESPACE_}_
 spec:
     rules:
@@ -13,9 +13,9 @@ spec:
         paths:
         - backend:
             service:
-              name: solar-system
+              name: solar-system-dev
               port:
-                number: 3000
+                number: 80
           path: /
           pathType: Prefix
     tls:
