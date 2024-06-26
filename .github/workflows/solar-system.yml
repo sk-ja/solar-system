@@ -270,3 +270,4 @@ jobs:
             echo ${{ env.URL }}
             echo "-------------------"
             curl https://${{ env.URL }}/live -s -k | jq -r .status | grep -i live
+            
