@@ -192,6 +192,8 @@ jobs:
     dev-deploy:
       needs: docker
       runs-on: self-hosted
+      outputs:
+        APP_INGRESS_URL: ${{ steps.set-url.outputs.APP_INGRESS_HOST }}
       steps:
         - name: Checkout Repo
           uses: actions/checkout@v4
@@ -245,3 +247,22 @@ jobs:
         - name: Deploy to Kubernetes
           run: |
             kubectl apply -f kubernetes/development
+
+        - name: Set app ingress host address
+          id: set-url
+          run: |
+            echo "APP_INGRESS_HOST=$(kubectl get ingress -n ${{ vars.NAMESPACE }} solar-system-app -o jsonpath='{.items[0].spec.tls[0].hosts[0]}')" >> $GITHUB_OUTPUT
+            
+
+    integration-testing:
+      name: Dev integration testing
+      needs: dev-deploy
+      runs-on: self-hosted
+      steps:
+        - name: Test URL using curl and jq
+          env:
+            URL: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
+          run: |
+            echo $URL
+            echo "-------------------"
+            curl http://$URL/live -s -k | jq -r .status | grep -i live
