@@ -106,12 +106,12 @@ jobs:
       continue-on-error: true
       steps:
         - name: Download Mocha Test Artifact
-          uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v4
           with:
             name: Mocha-Test-Result
             
         - name: Download Coverage Artifact
-          uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v4
           with:
             name: Code-Coverage-result
           
@@ -197,12 +197,7 @@ jobs:
           docker stop solar-system-app
           docker image rm -f ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
 
-      - name: 'Cleanup build folder'
-        run: |
-          ls -la ./
-          rm -rf ./* || true
-          rm -rf ./.??* || true
-          ls -la ./
+      
   
     dev-deploy:
       needs: docker
