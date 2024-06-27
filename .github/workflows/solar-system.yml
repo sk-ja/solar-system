@@ -214,7 +214,7 @@ jobs:
         - name: Test URL using curl and jq
           continue-on-error: true
           env:
-            URL: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
+            URL: ${{ needs.dev-deploy.outputs.application-url }}
           run: |
             echo ${{ env.URL }}
             echo "-------------------"
@@ -243,7 +243,7 @@ jobs:
       steps:
         - name: Test URL using curl and jq
           env:
-            URL: ${{ needs.prod-deploy.outputs.APP_INGRESS_URL }}
+            URL: ${{ needs.prod-deploy.outputs.application-url }}
           run: |
             echo ${{ env.URL }}
             echo "-------------------"
