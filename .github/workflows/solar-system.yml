@@ -28,7 +28,7 @@ jobs:
               - 27017:27017
         continue-on-error: true
         name: Unit Testing
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -74,7 +74,7 @@ jobs:
       container:
         image: node:18
       continue-on-error: true
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
