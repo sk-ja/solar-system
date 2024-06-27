@@ -78,7 +78,7 @@ jobs:
 
             - name: Check files
               run: |
-                cat ${{ inputs.k8s-manifest-dir }}*.yaml
+                cat ${{ inputs.k8s-manifest-dir }}/*.yaml
 
             - name: Create MongoDB Secret
               run: |
