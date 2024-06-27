@@ -194,12 +194,13 @@ jobs:
       if: contains(github.ref, 'feature/')
       uses: ./.github/workflows/reusable-deploy.yml
       secrets:
-        k8s-cubeconfig: ${{ secrets.KUBECONFIG }}
+        k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
         mongodb-password: ${{ secrets.MONGO_PASSWORD }}
       with:
         mongodb-uri: ${{ vars.MONGO_URI }}
         environment: development
         k8s-manifest-dir: kubernetes/development
+        kubectl-version: 1.29
 
       
             
@@ -225,12 +226,13 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: ./.github/workflows/reusable-deploy.yml
       secrets:
-        k8s-cubeconfig: ${{ secrets.KUBECONFIG }}
+        k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
         mongodb-password: ${{ secrets.MONGO_PASSWORD }}
       with:
         mongodb-uri: ${{ vars.MONGO_URI }}
         environment: production
         k8s-manifest-dir: kubernetes/production
+        kubectl-version: 1.29
             
     prod-integration-testing:
       if: github.ref == 'refs/heads/main'
