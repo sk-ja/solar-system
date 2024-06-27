@@ -123,17 +123,21 @@ jobs:
             mv test-results.xml reports-${{ github.sha }}/
             ls -ltr reports-${{ github.sha }}/
 
-        - name: Upload Reports to S3   #the example action should work. Always check before using. Comment out run if you decide to use custom action. 
-          # uses: jakejarvis/s3-sync-action@master
-          # with:
-          #   args: --acl public-read --follow-symlinks --delete
-          # env:
-          #   AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          #   AWS_REGION: 'us-west-1'   # optional: defaults to us-east-1
-          #   SOURCE_DIR: 'public'      # optional: defaults to entire repository
-          run: echo "uploading.... this is a placeholder fo uploading reports to s3"
+        # - name: Configure AWS credentials
+        #   uses: aws-actions/configure-aws-credentials@v4
+        #   with:
+        #     aws-access-key-id: <your-access-key-id>
+        #     aws-secret-access-key: <your-secret-access-key>
+        #     aws-region: <your-aws-region>
+
+        # - name: Upload Reports to AWS S3
+        #   uses: usualdesigner/s3-artifact-upload@main
+        #   with:
+        #     bucket-name: <your-bucket-name>
+        #     file: <your-file-name>
+        
+        - name: Upload Reports to S3 
+          run: echo "uploading.... this is a placeholder fo uploading reports to s3, uncomment the actual actions above if you want to upload"
            
     docker:
       permissions:
