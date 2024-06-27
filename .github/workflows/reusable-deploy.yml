@@ -69,7 +69,7 @@ jobs:
               with:
                 tokenPrefix: '_{_'
                 tokenSuffix: '_}_'
-                files: '["${{ inputs.k8s-manifest-dir }}*.yaml"]'
+                files: '["${{ inputs.k8s-manifest-dir }}/*.yaml"]'
               env:
                 NAMESPACE: ${{ vars.NAMESPACE }}
                 REPLICAS: ${{ vars.REPLICAS }}
