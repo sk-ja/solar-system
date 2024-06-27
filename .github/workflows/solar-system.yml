@@ -111,6 +111,33 @@ jobs:
           rm -rf ./.??* || true
           ls -la ./
 
+    reports-s3:
+      needs: [unit-testing, code-coverage]
+      name: AWS S3 - Upload Reports
+      runs-on: self-hosted
+      continue-on-error: true
+      steps:
+        - name: Download Mocha Test Artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: Mocha-Test-Result
+            
+        - name: Download Coverage Artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: Code-Coverage-result
+          
+        - name: Merge Test Files
+          run: |
+            ls -ltr
+            mkdir reports-${{ github.sha }}
+            mv cobertura-coverage.xml reports-${{ github.sha }}/
+            mv test-results.xml reports-${{ github.sha }}/
+            ls -ltr reports-${{ github.sha }}/
+
+        - name: Upload Reports to S3
+          run: echo "uploading.... this is a placeholder fo uploading reports to s3"
+           
     docker:
       permissions:
         packages: write
@@ -201,9 +228,7 @@ jobs:
         environment: development
         k8s-manifest-dir: kubernetes/development
         kubectl-version: v1.29.4
-
       
-            
     dev-integration-testing:
       needs: dev-deploy
       if: contains(github.ref, 'feature/')
@@ -220,7 +245,6 @@ jobs:
             echo "-------------------"
             curl https://${{ env.URL }}/live -s -k | jq -r .status | grep -i live
              
-
     prod-deploy:
       needs: docker
       if: github.ref == 'refs/heads/main'
@@ -234,7 +258,7 @@ jobs:
         k8s-manifest-dir: kubernetes/production
         kubectl-version: v1.29.4
             
-        
+
     prod-integration-testing:
       if: github.ref == 'refs/heads/main'
       name: prod integration testing
