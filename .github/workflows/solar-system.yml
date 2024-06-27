@@ -74,7 +74,7 @@ jobs:
       container:
         image: node:18
       continue-on-error: true
-      runs-on: self-hosted
+      runs-on: ubuntu-latest
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -96,8 +96,6 @@ jobs:
           name: Code-Coverage-result
           path: coverage
           retention-days: 5
-
-
 
     reports-s3:
       needs: [unit-testing, code-coverage]
