@@ -58,13 +58,7 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
-        - name: 'Cleanup build folder'
-          run: |
-            ls -la ./
-            rm -rf ./* || true
-            rm -rf ./.??* || true
-            ls -la ./
-          
+        
     code-coverage:
       name: Code Coverage
       env:
@@ -104,12 +98,6 @@ jobs:
           retention-days: 5
 
 
-      - name: 'Cleanup build folder'
-        run: |
-          ls -la ./
-          rm -rf ./* || true
-          rm -rf ./.??* || true
-          ls -la ./
 
     reports-s3:
       needs: [unit-testing, code-coverage]
