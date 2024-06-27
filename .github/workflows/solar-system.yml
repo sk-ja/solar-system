@@ -200,7 +200,7 @@ jobs:
         mongodb-uri: ${{ vars.MONGO_URI }}
         environment: development
         k8s-manifest-dir: kubernetes/development
-        kubectl-version: 1.29
+        kubectl-version: v1.29
 
       
             
@@ -232,7 +232,7 @@ jobs:
         mongodb-uri: ${{ vars.MONGO_URI }}
         environment: production
         k8s-manifest-dir: kubernetes/production
-        kubectl-version: 1.29
+        kubectl-version: v1.29
             
     prod-integration-testing:
       if: github.ref == 'refs/heads/main'
