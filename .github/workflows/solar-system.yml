@@ -38,14 +38,11 @@ jobs:
           with:
             node-version: 20
     
-        - name: Cache Dependencies
-          uses: actions/cache@v4
+        - name:  Composite Action - Cache & install NPM Packages
+          uses: ./.github/custom-actions/npm-action
           with:
-            path: node_modules
-            key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-        
-        - name: Install Dependencies
-          run: npm install
+            path-of-folder: node_modules
+
 
         - name: Unit Testing
           id: unit-test
@@ -75,7 +72,9 @@ jobs:
         image: node:18
       continue-on-error: true
       runs-on: self-hosted
+
       steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -84,12 +83,16 @@ jobs:
       #   with:
       #     node-version: 20
       
-      - name: Install Dependencies
-        run: npm install
-        
+      - name:  Composite Action - Cache & install NPM Packages
+        uses: ./.github/custom-actions/npm-action
+        with:
+          path-of-folder: node_modules
+
+
       - name: Code Coverage
         continue-on-error: true
         run: npm run coverage
+
       - name: Archive Coverage Report
         uses: actions/upload-artifact@v4
         with:
@@ -207,9 +210,7 @@ jobs:
         run: |
           docker stop solar-system-app
           docker image rm -f ${{ secrets.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
-
-      
-  
+ 
     dev-deploy:
       needs: docker
       if: contains(github.ref, 'feature/')
@@ -252,7 +253,6 @@ jobs:
         k8s-manifest-dir: kubernetes/production
         kubectl-version: v1.29.4
             
-
     prod-integration-testing:
       if: github.ref == 'refs/heads/main'
       name: prod integration testing
@@ -267,5 +267,6 @@ jobs:
             echo ${{ env.URL }}
             echo "-------------------"
             curl https://${{ env.URL }}/live -s -k | jq -r .status | grep -i live
-            
-             
+    
+    
+  
