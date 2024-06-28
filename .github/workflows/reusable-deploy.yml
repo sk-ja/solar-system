@@ -17,6 +17,9 @@ on:
             default: kubernetes/
             required: true
             type: string 
+        dockerhub-username:
+            required: true
+            type: string
         environment:
             description: Provide the Deployment Environment
             default: dev
