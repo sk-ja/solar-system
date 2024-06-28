@@ -178,7 +178,7 @@ jobs:
           docker stop solar-system-app
           docker rm -f solar-system-app
     
-
+        
       - name: Docker Image Test
         run: |
           docker images
