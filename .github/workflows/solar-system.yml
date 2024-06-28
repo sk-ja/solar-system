@@ -219,12 +219,12 @@ jobs:
       secrets:
         k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
         mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+        dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
       with:
         mongodb-uri: ${{ vars.MONGO_URI }}
         environment: development
         k8s-manifest-dir: kubernetes/development
         kubectl-version: v1.29.4
-        dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
       
     dev-integration-testing:
       needs: dev-deploy
@@ -249,6 +249,7 @@ jobs:
       secrets:
         k8s-kubeconfig: ${{ secrets.KUBECONFIG }}
         mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+        dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
       with:
         mongodb-uri: ${{ vars.MONGO_URI }}
         environment: production
